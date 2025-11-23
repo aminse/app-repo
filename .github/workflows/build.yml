@@ -39,7 +39,7 @@ jobs:
         with:
           github-token: ${{ secrets.GH_PAT }}
           script: |
-            const repo = 'your-org/gitops-repo'
+            const repo = 'aminse/gitops-repo'
             const workflow_id = 'update-dev.yml'
             const inputs = { image_tag: process.env.IMAGE_TAG }
             await github.actions.createWorkflowDispatch({
