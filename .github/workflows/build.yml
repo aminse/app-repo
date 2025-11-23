@@ -34,18 +34,11 @@ jobs:
       - name: Export IMAGE_TAG
         run: echo "IMAGE_TAG=${GITHUB_SHA::7}" >> $GITHUB_ENV
 
-      - name: Trigger GitOps update workflow
-        uses: actions/github-script@v6
-        with:
-          github-token: ${{ secrets.GH_PAT }}
-          script: |
-            const repo = 'aminse/gitops-repo'
-            const workflow_id = 'update-dev.yml'
-            const inputs = { image_tag: process.env.IMAGE_TAG }
-            await github.actions.createWorkflowDispatch({
-              owner: repo.split('/')[0],
-              repo: repo.split('/')[1],
-              workflow_id,
-              ref: 'main',
-              inputs
-            })
+      - name: Trigger GitOps update
+        env:
+          GH_TOKEN: ${{ secrets.GH_PAT }}
+        run: |
+          gh workflow run update-dev.yml \
+          --repo your-org/gitops-repo \
+          --field image_tag=${IMAGE_TAG}
+
