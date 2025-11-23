@@ -39,6 +39,6 @@ jobs:
           GH_TOKEN: ${{ secrets.GH_PAT }}
         run: |
           gh workflow run update-dev.yml \
-          --repo aminse/gitops-repo \
-          --field image_tag=${IMAGE_TAG}
+            --repo aminse/gitops-repo \
+            --field image_tag=${IMAGE_TAG}
 
